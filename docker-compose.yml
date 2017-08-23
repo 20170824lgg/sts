@@ -1,0 +1,16 @@
+version: '2'
+services:
+  sts:
+    image: "20170824lgg/sts:latest"
+    links: [ database ]
+    depends_on: [ database ]
+    ports:
+      - "8009:8080"
+    environment:
+      STS_DSN: root:demo@tcp(database:3306)/sts
+    restart: always
+  database:
+    image: "mariadb:latest"
+    environment:
+      MYSQL_ROOT_PASSWORD: demo
+      MYSQL_DATABASE: sts
